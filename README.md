@@ -3,7 +3,7 @@
 Instruktioner för att hantera och generera övningsmaterial till Momoni-passet.
 
 ## Filstruktur
-* **`ddos/`, `deepfake/`, `domain/`**: HTML-källfiler för respektive övningsmodul.
+* **`ddos/`, `deepfake/`, `domain/`, `ransomware/`, `worm/`, `phishing/`**: HTML-källfiler för respektive övningsmodul.
 * **`convert.js`**: Node.js-skript som konverterar HTML till PDF via Puppeteer.
 
 ## Installation
