@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8">
+    <title>Analysuppgift – DDoS Attack</title>
+    <style>
+    @page { size: A4; margin: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 210mm;
+      height: 297mm;
+      background: #f4f6f9;
+      font-family: 'Consolas', 'Courier New', monospace;
+      color: #1a1a2e;
+      overflow: hidden;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 5mm;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: #0f2040;
+      color: #fff;
+      padding: 4mm 8mm;
+      flex-shrink: 0;
+    }
+
+    .topbar h1 {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 14pt;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1mm;
+    }
+
+    .topbar .meta {
+      font-size: 7.5pt;
+      color: #90b8d8;
+    }
+
+    /* ── TABLE WRAPPER (centrering) ── */
+    .table-wrapper {
+      margin: 0 12mm;
+      flex: 1;
+      display: flex;
+    }
+
+    /* ── TABLE ── */
+    .log-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .log-table thead tr { background: #1a3a6a; color: #a0c0e0; }
+
+    .log-table thead th {
+      padding: 1.5mm;
+      font-size: 6.5pt;
+      text-transform: uppercase;
+      text-align: left;
+    }
+
+    /* Kolumnbredder */
+    .log-table th:nth-child(1),
+    .log-table td:nth-child(1) { width: 12%; }
+
+    .log-table th:nth-child(2),
+    .log-table td:nth-child(2) { width: 16%; }
+
+    .log-table th:nth-child(3),
+    .log-table td:nth-child(3) { width: 8%; text-align: center; }
+
+    .log-table th:nth-child(4),
+    .log-table td:nth-child(4) { width: 14%; }
+
+    .log-table th:nth-child(5),
+    .log-table td:nth-child(5) { width: 8%; text-align: center; }
+
+    .log-table th:nth-child(6),
+    .log-table td:nth-child(6) { width: 10%; text-align: right; padding-right: 2mm; }
+
+    .log-table th:nth-child(7),
+    .log-table td:nth-child(7) { width: 32%; }
+
+    .log-table tbody tr {
+      border-bottom: 1px solid #dde4ee;
+      line-height: 1.4;
+    }
+
+    .log-table tbody td {
+      padding: 1.1mm 1.5mm;
+      font-size: 7pt;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Status & Time Colors */
+    .s200 { color: #1a7a1a; font-weight: bold; }
+    .s503 { color: #cc2200; font-weight: bold; }
+    .t-crit { color: #cc0000; font-weight: bold; }
+
+    /* Divider note */
+    tr.note td {
+      background: #fff3cd !important;
+      font-size: 6pt;
+      text-align: center;
+      font-weight: bold;
+      color: #5a4000;
+    }
+
+    /* ── ANSWER SECTION ── */
+    .answer-zone {
+      margin: 4mm 8mm;
+      padding: 4mm;
+      background: #fff;
+      border: 2px solid #0f2040;
+      border-radius: 8px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    .answer-zone h2 {
+      font-size: 10pt;
+      text-transform: uppercase;
+      margin-bottom: 3mm;
+      color: #0f2040;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 1mm;
+    }
+
+    .question { margin-bottom: 3mm; }
+    .question label { display: block; font-size: 8.5pt; font-weight: bold; margin-bottom: 1mm; }
+
+    .checkbox-group { display: flex; gap: 4mm; margin-top: 1mm; }
+    .checkbox-item { display: flex; align-items: center; gap: 1.5mm; font-size: 8pt; }
+    .box { width: 12px; height: 12px; border: 1px solid #333; display: inline-block; }
+
+    .input-line {
+      width: 100%;
+      border-bottom: 1px dashed #333;
+      height: 6mm;
+      margin-top: 1mm;
+    }
+
+    .footer-info {
+      text-align: right;
+      font-size: 6pt;
+      color: #999;
+      margin-right: 8mm;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+
+      <div class="topbar">
+        <h1>Serverlogg: SRV-A</h1>
+        <div class="meta">SERVER: portal.momoni.gov | STATUS: KRITISK | TIDSINTERVALL: 12:01:02 – 12:01:45</div>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="log-table">
+          <thead>
+            <tr>
+              <th>Tidstämpel</th>
+              <th>IP-adress</th>
+              <th>Metod</th>
+              <th>Endpoint</th>
+              <th>Status</th>
+              <th>Svarstid</th>
+              <th>User-Agent (Signatur)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="note"><td colspan="7">NORMAL TRAFIK</td></tr>
+            <tr><td>12:01:02</td><td>198.51.100.10</td><td>GET</td><td>/home</td><td class="s200">200</td><td>45 ms</td><td>Mozilla/5.0 (Windows NT 10.0)</td></tr>
+            <tr><td>12:01:04</td><td>192.0.2.5</td><td>GET</td><td>/login</td><td class="s200">200</td><td>95 ms</td><td>Mozilla/5.0 (iPhone; iOS 15)</td></tr>
+
+            <tr class="note"><td colspan="7">AVVIKELSE DETEKTERAD: VOLYMEN ÖKAR</td></tr>
+            <tr><td>12:01:05</td><td>45.12.88.2</td><td>POST</td><td>/login</td><td class="s200">200</td><td>110 ms</td><td>CyberFlood/v1.3 (Botnet)</td></tr>
+            <tr><td>12:01:05</td><td>185.34.2.11</td><td>POST</td><td>/login</td><td class="s200">200</td><td>115 ms</td><td>CyberFlood/v1.3 (Botnet)</td></tr>
+            <tr><td>12:01:06</td><td>198.51.100.10</td><td>GET</td><td>/home</td><td class="s200">200</td><td>240 ms</td><td>Mozilla/5.0 (Windows NT 10.0)</td></tr>
+            <tr><td>12:01:06</td><td>92.112.5.4</td><td>POST</td><td>/login</td><td class="s200">200</td><td>280 ms</td><td>CyberFlood/v1.3 (Botnet)</td></tr>
+            <tr><td>12:01:07</td><td>213.45.8.99</td><td>POST</td><td>/login</td><td class="s200">200</td><td>350 ms</td><td>CyberFlood/v1.3 (Botnet)</td></tr>
+
+            <tr class="note"><td colspan="7">VARNING: SERVERÖVERBELASTNING (CPU 98%)</td></tr>
+            <tr><td>12:01:10</td><td>192.0.2.5</td><td>GET</td><td>/home</td><td class="s503">503</td><td>1200 ms</td><td>Mozilla/5.0 (iPhone; iOS 15)</td></tr>
+            <tr><td>12:01:10</td><td>77.44.12.33</td><td>POST</td><td>/login</td><td class="s200">200</td><td>1450 ms</td><td>CyberFlood/v1.3 (Botnet)</td></tr>
+            <tr><td>12:01:11</td><td>45.12.88.2</td><td>POST</td><td>/login</td><td class="s200">200</td><td>1800 ms</td><td>CyberFlood/v1.3 (Botnet)</td></tr>
+            <tr><td>12:01:11</td><td>185.34.2.11</td><td>POST</td><td>/login</td><td class="s200">200</td><td>1950 ms</td><td>CyberFlood/v1.3 (Botnet)</td></tr>
+            <tr><td>12:01:12</td><td>198.51.100.10</td><td>GET</td><td>/home</td><td class="s503">503</td><td class="t-crit">2100 ms</td><td>Mozilla/5.0 (Windows NT 10.0)</td></tr>
+            <tr><td>12:01:13</td><td>103.22.5.1</td><td>POST</td><td>/login</td><td class="s503">503</td><td class="t-crit">2400 ms</td><td>CyberFlood/v1.3 (Botnet)</td></tr>
+            <tr><td>12:01:14</td><td>92.112.5.4</td><td>POST</td><td>/login</td><td class="s503">503</td><td class="t-crit">2800 ms</td><td>CyberFlood/v1.3 (Botnet)</td></tr>
+            <tr><td>12:01:15</td><td>213.45.8.99</td><td>POST</td><td>/login</td><td class="s503">503</td><td class="t-crit">3200 ms</td><td>CyberFlood/v1.3 (Botnet)</td></tr>
+
+            <tr class="note"><td colspan="7">[...] YTTERLIGARE 850 RADER MED SAMMA MÖNSTER [...]</td></tr>
+
+            <tr><td>12:01:45</td><td>45.12.88.2</td><td>POST</td><td>/login</td><td class="s503">503</td><td class="t-crit">5400 ms</td><td>CyberFlood/v1.3 (Botnet)</td></tr>
+            <tr><td>12:01:45</td><td>185.34.2.11</td><td>POST</td><td>/login</td><td class="s503">503</td><td class="t-crit">5600 ms</td><td>CyberFlood/v1.3 (Botnet)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="answer-zone">
+        <h2>Svarsrapport: Incidentanalys</h2>
+
+        <div class="question">
+          <label>1. Vilken gemensam "signatur" använder botnätet? (User-Agent)</label>
+          <div class="input-line"></div>
+        </div>
+
+        <div class="question">
+          <label>2. Vilken specifik metod och endpoint (sida) attackeras?</label>
+          <div class="checkbox-group">
+            <div class="checkbox-item"><div class="box"></div> GET /home</div>
+            <div class="checkbox-item"><div class="box"></div> POST /login</div>
+            <div class="checkbox-item"><div class="box"></div> GET /about</div>
+          </div>
+        </div>
+
+        <div class="question">
+          <label>3. Hur ser man i loggen att servern har slutat fungera för vanliga användare?</label>
+          <div class="input-line"></div>
+        </div>
+
+        <div class="question" style="margin-bottom:0;">
+          <label>4. Föreslå en åtgärd för brandväggen (vad ska blockeras?):</label>
+          <div class="input-line"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
