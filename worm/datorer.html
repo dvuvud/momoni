@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8">
+    <title>Worm Attack – Uppgift</title>
+    <style>
+    @page { size: A4; margin: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 210mm;
+      height: 297mm;
+      background: #4a78b5;
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      color: #05101e;
+      overflow: hidden;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      padding: 9mm 10mm 8mm 10mm;
+      display: flex;
+      flex-direction: column;
+      gap: 3mm;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      padding: 0 4mm 1mm;
+      flex-shrink: 0;
+    }
+
+    .header h1 {
+      font-size: 26pt;
+      font-weight: 900;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #05101e;
+      line-height: 1;
+      margin-bottom: 2mm;
+    }
+
+    .header-sub {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 7.5pt;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #0a2a50;
+      margin-bottom: 2.5mm;
+    }
+
+    .header-sub .icon-sq {
+      width: 10px; height: 10px;
+      background: #0a2a50;
+      border-radius: 2px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .header .intro {
+      font-size: 10.5pt;
+      font-weight: 700;
+      line-height: 1.45;
+      color: #05101e;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 4mm 5.5mm;
+      box-shadow: 0 3px 12px rgba(5, 20, 60, 0.18);
+      flex-shrink: 0;
+    }
+
+    .card-grow { flex: 1; }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 8pt;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #1a4a8a;
+      margin-bottom: 2.5mm;
+    }
+
+    .card-title .icon { font-size: 11pt; line-height: 1; }
+
+    .card > p {
+      font-size: 10pt;
+      line-height: 1.5;
+      color: #05101e;
+    }
+
+    /* ── Network SVG ── */
+    .network-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1mm;
+    }
+
+    /* ── Spread table ── */
+    .spread-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2mm;
+      font-size: 9.5pt;
+    }
+
+    .spread-table thead th {
+      background: #1a4a8a;
+      color: #fff;
+      padding: 2mm 3.5mm;
+      text-align: left;
+      font-size: 7.5pt;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .spread-table thead th:first-child  { border-radius: 5px 0 0 0; }
+    .spread-table thead th:last-child   { border-radius: 0 5px 0 0; }
+
+    .spread-table tbody td {
+      padding: 2.5mm 3.5mm;
+      border-bottom: 1px solid #dde8f8;
+      vertical-align: middle;
+      font-size: 9.5pt;
+    }
+
+    .spread-table tbody tr:last-child td { border-bottom: none; }
+
+    .spread-table tbody td:first-child {
+      font-weight: 800;
+      color: #1a4a8a;
+      white-space: nowrap;
+      width: 18mm;
+    }
+
+    .given {
+      font-weight: 700;
+      color: #b52a2a;
+    }
+
+    .fill-line {
+      display: inline-block;
+      width: 88%;
+      border-bottom: 1.5px dashed #aac0e0;
+      min-height: 5mm;
+    }
+
+    .fill-line-sm {
+      display: inline-block;
+      width: 60%;
+      border-bottom: 1.5px dashed #aac0e0;
+      min-height: 5mm;
+    }
+
+    /* ── Questions ── */
+    .questions {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 3.5mm;
+    }
+
+    .questions li {
+      font-size: 10pt;
+      line-height: 1.5;
+      color: #05101e;
+      padding-left: 6mm;
+      position: relative;
+    }
+
+    .questions li::before {
+      content: attr(data-n);
+      position: absolute;
+      left: 0;
+      font-weight: 900;
+      color: #1a4a8a;
+    }
+
+    .answer-line {
+      display: block;
+      border-bottom: 1.5px dashed #aac0e0;
+      margin-top: 2mm;
+      min-height: 5.5mm;
+    }
+
+    /* ── Dark footer card ── */
+    .card-dark {
+      background: #0a1e3a;
+      border-radius: 10px;
+      padding: 3.5mm 5.5mm;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(5, 15, 50, 0.45);
+      flex-shrink: 0;
+    }
+
+    .card-dark .hint-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 7.5pt;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #80b0e0;
+      margin-bottom: 2mm;
+    }
+
+    .card-dark .hint-label .icon-circle {
+      width: 10px; height: 10px;
+      border: 2px solid #80b0e0;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .card-dark p {
+      font-size: 10pt;
+      font-weight: 700;
+      line-height: 1.5;
+      color: #fff;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+
+      <!-- Header -->
+      <div class="header">
+        <h1>Worm Attack</h1>
+        <div class="header-sub">
+          <span class="icon-sq"></span>
+          Uppgift &ndash; Enheten för Cybersäkerhet
+        </div>
+        <p class="intro">
+          En mask har tagit sig in i myndighetens nätverk via Dator 3 kl. 09:00.<br>
+          Spåra hur masken sprider sig och räkna ut hur ni stoppar den!
+        </p>
+      </div>
+
+      <!-- Network diagram -->
+      <div class="card">
+        <div class="card-title">
+          <span class="icon">🕸</span> Nätverkskarta &ndash; Myndighetens datorer
+        </div>
+        <p style="font-size:9pt;color:#444;margin-bottom:2mm;">
+          Masken sprider sig till <strong>alla direkt anslutna datorer var 10:e minut</strong>.
+          Dator 3 infekterades kl. 09:00.
+        </p>
+        <div class="network-wrap">
+          <svg viewBox="0 0 480 215" style="width:100%;max-width:455px;" xmlns="http://www.w3.org/2000/svg">
+            <!-- Connection lines (drawn behind circles) -->
+            <!-- 3–2 -->
+            <line x1="240" y1="68" x2="110" y2="68" stroke="#7aaad8" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- 3–4 -->
+            <line x1="240" y1="68" x2="370" y2="68" stroke="#7aaad8" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- 2–1 -->
+            <line x1="110" y1="68" x2="110" y2="158" stroke="#7aaad8" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- 4–5 -->
+            <line x1="370" y1="68" x2="370" y2="158" stroke="#7aaad8" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- 1–6 -->
+            <line x1="110" y1="163" x2="240" y2="163" stroke="#7aaad8" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- 5–6 -->
+            <line x1="370" y1="163" x2="240" y2="163" stroke="#7aaad8" stroke-width="2.5" stroke-linecap="round"/>
+
+            <!-- Dator 2 (frisk) -->
+            <circle cx="110" cy="68" r="26" fill="#2a6aaa" stroke="#1a4a8a" stroke-width="2"/>
+            <text x="110" y="65" text-anchor="middle" font-size="8.5" font-weight="800" fill="white" font-family="Segoe UI,Arial,sans-serif">DATOR 2</text>
+            <text x="110" y="76" text-anchor="middle" font-size="7" fill="#b0d4ff" font-family="Segoe UI,Arial,sans-serif">frisk</text>
+
+            <!-- Dator 3 (INFEKTERAD) -->
+            <circle cx="240" cy="68" r="29" fill="#c0392b" stroke="#8b0000" stroke-width="2.5"/>
+            <text x="240" y="62" text-anchor="middle" font-size="8.5" font-weight="900" fill="white" font-family="Segoe UI,Arial,sans-serif">DATOR 3</text>
+            <text x="240" y="73" text-anchor="middle" font-size="7" font-weight="700" fill="#ffdddd" font-family="Segoe UI,Arial,sans-serif">INFEKTERAD</text>
+            <text x="240" y="83" text-anchor="middle" font-size="6.5" fill="#ffaaaa" font-family="Segoe UI,Arial,sans-serif">09:00 ⚠</text>
+
+            <!-- Dator 4 (frisk) -->
+            <circle cx="370" cy="68" r="26" fill="#2a6aaa" stroke="#1a4a8a" stroke-width="2"/>
+            <text x="370" y="65" text-anchor="middle" font-size="8.5" font-weight="800" fill="white" font-family="Segoe UI,Arial,sans-serif">DATOR 4</text>
+            <text x="370" y="76" text-anchor="middle" font-size="7" fill="#b0d4ff" font-family="Segoe UI,Arial,sans-serif">frisk</text>
+
+            <!-- Dator 1 (frisk) -->
+            <circle cx="110" cy="163" r="26" fill="#2a6aaa" stroke="#1a4a8a" stroke-width="2"/>
+            <text x="110" y="160" text-anchor="middle" font-size="8.5" font-weight="800" fill="white" font-family="Segoe UI,Arial,sans-serif">DATOR 1</text>
+            <text x="110" y="171" text-anchor="middle" font-size="7" fill="#b0d4ff" font-family="Segoe UI,Arial,sans-serif">frisk</text>
+
+            <!-- Dator 5 (frisk) -->
+            <circle cx="370" cy="163" r="26" fill="#2a6aaa" stroke="#1a4a8a" stroke-width="2"/>
+            <text x="370" y="160" text-anchor="middle" font-size="8.5" font-weight="800" fill="white" font-family="Segoe UI,Arial,sans-serif">DATOR 5</text>
+            <text x="370" y="171" text-anchor="middle" font-size="7" fill="#b0d4ff" font-family="Segoe UI,Arial,sans-serif">frisk</text>
+
+            <!-- Dator 6 (frisk) -->
+            <circle cx="240" cy="163" r="26" fill="#2a6aaa" stroke="#1a4a8a" stroke-width="2"/>
+            <text x="240" y="160" text-anchor="middle" font-size="8.5" font-weight="800" fill="white" font-family="Segoe UI,Arial,sans-serif">DATOR 6</text>
+            <text x="240" y="171" text-anchor="middle" font-size="7" fill="#b0d4ff" font-family="Segoe UI,Arial,sans-serif">frisk</text>
+
+            <!-- Legend -->
+            <circle cx="28"  cy="203" r="7" fill="#c0392b" stroke="#8b0000" stroke-width="1.5"/>
+            <text x="40" y="207" font-size="8" fill="#1a1a1a" font-family="Segoe UI,Arial,sans-serif">= Infekterad dator</text>
+            <circle cx="155" cy="203" r="7" fill="#2a6aaa" stroke="#1a4a8a" stroke-width="1.5"/>
+            <text x="167" y="207" font-size="8" fill="#1a1a1a" font-family="Segoe UI,Arial,sans-serif">= Frisk dator</text>
+            <line x1="278" y1="203" x2="302" y2="203" stroke="#7aaad8" stroke-width="2.5" stroke-linecap="round"/>
+            <text x="308" y="207" font-size="8" fill="#1a1a1a" font-family="Segoe UI,Arial,sans-serif">= Nätverksanslutning</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Fill-in table -->
+      <div class="card">
+        <div class="card-title">
+          <span class="icon">📋</span> Spårningsrapport &ndash; Fyll i tabellen
+        </div>
+        <table class="spread-table">
+          <thead>
+            <tr>
+              <th>Tid</th>
+              <th>Vilka datorer infekteras nu?</th>
+              <th>Totalt infekterade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>09:00</td>
+              <td><span class="given">Dator 3 &nbsp;(patient zero)</span></td>
+              <td><span class="given">1 dator</span></td>
+            </tr>
+            <tr>
+              <td>09:10</td>
+              <td><span class="fill-line"></span></td>
+              <td><span class="fill-line-sm"></span></td>
+            </tr>
+            <tr>
+              <td>09:20</td>
+              <td><span class="fill-line"></span></td>
+              <td><span class="fill-line-sm"></span></td>
+            </tr>
+            <tr>
+              <td>09:30</td>
+              <td><span class="fill-line"></span></td>
+              <td><span class="fill-line-sm"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Discussion questions -->
+      <div class="card card-grow">
+        <div class="card-title">
+          <span class="icon">💡</span> Diskussionsfrågor
+        </div>
+        <ul class="questions">
+          <li data-n="1.">
+            Vid vilken tid är <strong>alla datorer</strong> i nätverket infekterade?
+            <span class="answer-line"></span>
+          </li>
+          <li data-n="2.">
+            Om ni kopplar bort Dator 3 direkt vid 09:05, hur många datorer räddas? Vilka?
+            <span class="answer-line"></span>
+          </li>
+          <li data-n="3.">
+            Hade nätverkssegmentering (uppdelade undernätverk) kunnat begränsa skadan? Hur?
+            <span class="answer-line"></span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Footer hint -->
+      <div class="card-dark">
+        <div class="hint-label">
+          <span class="icon-circle"></span>
+          Tips
+        </div>
+        <p>
+          Rita gärna <strong>X</strong> på de infekterade datorerna i kartan ovan allteftersom masken sprider sig.
+          Då blir lättare att hålla koll på spridningen!
+        </p>
+      </div>
+
+    </div>
+  </body>
+</html>
