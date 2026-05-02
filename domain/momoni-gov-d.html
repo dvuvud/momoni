@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8">
+    <title>Republiken Momoni – D</title>
+    <style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12px; background: #fff;
+  width: 794px; min-height: 1123px; color: #333;
+}
+.chrome { background: #3a3a3a; padding: 5px 8px; display: flex; align-items: center; gap: 6px; }
+.dots { display: flex; gap: 4px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #ff5f57; } .dot-y { background: #febc2e; } .dot-g { background: #28c840; }
+.addr { background: #525252; border-radius: 3px; padding: 3px 8px; color: #ccc; font-size: 11px; flex: 1; }
+.tabs { background: #2b2b2b; display: flex; align-items: flex-end; padding: 3px 8px 0; gap: 4px; }
+.tab { background: #f0f0f0; border-radius: 5px 5px 0 0; padding: 4px 12px; font-size: 11px; color: #333; display: flex; align-items: center; gap: 5px; }
+.fav { width: 12px; height: 12px; background: #1a3a6b; border-radius: 2px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:7px; font-weight:bold; }
+.tab-new { color: #aaa; padding: 4px 8px; font-size: 15px; }
+.util { background: #1a3a6b; padding: 4px 14px; display: flex; justify-content: space-between; align-items: center; }
+.util .lbl { color: #aac4e8; font-size: 10.5px; }
+.util-links { display: flex; }
+.util-links a { color: #aac4e8; text-decoration: none; font-size: 10.5px; padding: 0 7px; border-right: 1px solid #2a5a9b; }
+.util-links a:last-child { border-right: none; }
+.hdr { padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #1a3a6b; }
+.logo { display: flex; align-items: center; gap: 10px; }
+.badge { width: 38px; height: 38px; background: #1a3a6b; border-radius: 6px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; font-weight:bold; }
+.logo h1 { font-size: 18px; color: #1a3a6b; font-weight: 700; }
+.logo p { font-size: 10px; color: #666; }
+.search { display: flex; }
+.search input { border: 1px solid #ccc; border-right: none; padding: 5px 9px; font-size: 11px; width: 170px; border-radius: 3px 0 0 3px; outline: none; }
+.search button { background: #1a3a6b; color: #fff; border: none; padding: 5px 10px; font-size: 11px; border-radius: 0 3px 3px 0; cursor:pointer; }
+.lang { margin-left: 10px; font-size: 11px; color: #1a3a6b; }
+nav { background: #1a3a6b; }
+nav ul { list-style: none; display: flex; padding: 0 14px; }
+nav li a { display: block; padding: 7px 13px; color: #ccd9ea; text-decoration: none; font-size: 12px; }
+nav li.active a { background: #0f2550; color: #fff; }
+nav li.active { border-bottom: 3px solid #f5a623; }
+.crumb { padding: 5px 14px; background: #f0f4fa; font-size: 10.5px; color: #555; border-bottom: 1px solid #dde4f0; }
+.main { padding: 12px 14px; }
+.hero { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
+.hero h2 { font-size: 16px; color: #1a3a6b; margin-bottom: 6px; }
+.hero p { color: #555; line-height: 1.5; font-size: 11.5px; }
+.stat { background: #1a3a6b; color: #fff; border-radius: 7px; padding: 10px 16px; text-align: center; min-width: 120px; }
+.stat .n { font-size: 28px; font-weight: bold; }
+.stat .l { font-size: 10px; color: #aac4e8; margin-top: 2px; }
+.sec-title { font-size: 13px; font-weight: 600; color: #1a3a6b; margin: 10px 0 7px; border-bottom: 2px solid #dde4f0; padding-bottom: 4px; }
+.services { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 4px; }
+.svc { background: #f8f9fc; border: 1px solid #e0e6f0; border-radius: 4px; padding: 8px 6px; text-align: center; }
+.svc .ico { font-size: 16px; margin-bottom: 3px; }
+.svc .name { font-size: 11px; font-weight: 600; color: #1a3a6b; }
+.svc .desc { font-size: 10px; color: #888; }
+.news { margin-top: 4px; }
+.ni { padding: 7px 0; border-bottom: 1px solid #eee; display: flex; gap: 9px; align-items: flex-start; }
+.ni:last-of-type { border-bottom: none; }
+.tag { font-size: 9px; font-weight: 700; letter-spacing: 0.4px; color: #1a3a6b; background: #eef2fb; padding: 2px 5px; border-radius: 2px; white-space: nowrap; margin-top: 1px; }
+.tag.ek { background: #fef9e7; color: #7d6608; }
+.tag.ha { background: #eafaf1; color: #1e8449; }
+.nc h4 { font-size: 11.5px; font-weight: 600; color: #1a3a6b; margin-bottom: 2px; }
+.nc p { font-size: 10.5px; color: #666; line-height: 1.3; }
+.nd { font-size: 10px; color: #999; margin-top: 2px; }
+.alert { background: #fff8e1; border-left: 3px solid #f5a623; border-radius: 3px; padding: 7px 10px; margin-top: 8px; font-size: 10.5px; color: #555; }
+.alert strong { color: #c0392b; }
+.login { background: #f8f9fc; border: 1px solid #e0e6f0; border-radius: 5px; padding: 13px 14px; margin-top: 12px; }
+.login h3 { font-size: 12.5px; font-weight: 600; color: #1a3a6b; margin-bottom: 11px; }
+.fg { margin-bottom: 8px; }
+.fg label { display: block; font-size: 10.5px; font-weight: 600; color: #444; margin-bottom: 3px; }
+.fg input { width: 100%; border: 1px solid #ccc; border-radius: 3px; padding: 6px 8px; font-size: 11px; outline: none; }
+.fg input::placeholder { color: #bbb; }
+.btn-in { width: 100%; background: #1a3a6b; color: #fff; border: none; padding: 8px; border-radius: 3px; font-size: 12px; font-weight: 600; cursor: pointer; margin-top: 2px; }
+
+</style>
+  </head>
+  <body>
+
+    <div class="chrome">
+      <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+      <div class="addr">🔒 portal.momoni.gov</div>
+    </div>
+    <div class="tabs">
+      <div class="tab"><span class="fav">M</span> Republiken Momoni – Officiell Statsportal</div>
+      <div class="tab-new">+ Ny flik</div>
+    </div>
+
+
+
+    <div class="util">
+      <span class="lbl">Republiken Momonis officiella statsportal</span>
+      <div class="util-links"><a href="#">Om portalen</a><a href="#">Tillgänglighet</a><a href="#">Kontakt</a></div>
+    </div>
+
+    <div class="hdr">
+      <div class="logo">
+        <div class="badge">M</div>
+        <div><h1>Republiken Momoni</h1><p>Officiell statsportal · Manamon</p></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="search"><input type="text" placeholder="Sök i statsportalen..."><button>Sök</button></div>
+        <div class="lang"><strong>MO</strong>ENF R</div>
+      </div>
+    </div>
+
+    <nav><ul>
+      <li class="active"><a href="#">Startsida</a></li>
+      <li><a href="#">Myndigheter</a></li>
+      <li><a href="#">E-tjänster</a></li>
+      <li><a href="#">Lagar &amp; regler</a></li>
+      <li><a href="#">Nyheter</a></li>
+      <li><a href="#">Om landet</a></li>
+    </ul></nav>
+    <div class="crumb">Startsida</div>
+
+    <div class="main">
+      <div class="hero">
+        <div>
+          <h2>Välkommen till Republiken Momonis statsportal</h2>
+          <p>Här hittar du alla statliga e-tjänster, myndighetsinformation och officiella nyheter från regeringen i Manamon.</p>
+        </div>
+        <div class="stat"><div class="n">47</div><div class="l">myndigheter anslutna</div></div>
+      </div>
+
+      <div class="sec-title">Populära e-tjänster</div>
+      <div class="services">
+        <div class="svc"><div class="ico">🪪</div><div class="name">Nationell ID-portal</div><div class="desc">Ansök om eller förnya ID-kort</div></div>
+        <div class="svc"><div class="ico">🏥</div><div class="name">Sjukvårdsbokning</div><div class="desc">Boka tid vid statliga kliniker</div></div>
+        <div class="svc"><div class="ico">🎓</div><div class="name">Utbildningsregister</div><div class="desc">Behörigheter, betyg och intyg</div></div>
+        <div class="svc"><div class="ico">🚗</div><div class="name">Fordonsregister</div><div class="desc">Registrering och ägarbyte</div></div>
+        <div class="svc"><div class="ico">🏠</div><div class="name">Bostadsregister</div><div class="desc">Adressändring och folkbokföring</div></div>
+        <div class="svc"><div class="ico">💼</div><div class="name">Arbetsförmedling</div><div class="desc">Lediga tjänster och stöd</div></div>
+        <div class="svc"><div class="ico">👶</div><div class="name">Familjeförmåner</div><div class="desc">Barnbidrag och föräldrapenning</div></div>
+        <div class="svc"><div class="ico">🌍</div><div class="name">Passansökan</div><div class="desc">Nytt pass eller förlängning</div></div>
+      </div>
+
+      <div class="sec-title">Senaste nyheter</div>
+      <div class="news">
+        <div class="ni">
+          <span class="tag">SÄKERHET</span>
+          <div class="nc"><h4>Regeringen lanserar ny nationell cybersäkerhetsstrategi</h4><p>Strategin syftar till att stärka skyddet av kritisk digital infrastruktur inför ökade hot från utländska aktörer.</p><div class="nd">30 april 2026</div></div>
+        </div>
+        <div class="ni">
+          <span class="tag ek">EKONOMI</span>
+          <div class="nc"><h4>Statsbudgeten för 2027 presenteras nästa månad</h4><p>Finansministeriet meddelar att budgetpropositionen publiceras den 15 maj vid en presskonferens i Manamon.</p><div class="nd">28 april 2026</div></div>
+        </div>
+        <div class="ni">
+          <span class="tag ha">HÄLSA</span>
+          <div class="nc"><h4>Vaccination mot säsongsinfluensa öppnar i maj</h4><p>Statliga vårdcentraler tar emot bokningar från och med den 5 maj. Prioritet ges till riskgrupper och äldre.</p><div class="nd">25 april 2026</div></div>
+        </div>
+        <div class="ni">
+          <span class="tag" style="background:#f0eaff;color:#5b2d8e;">UTBILDNING</span>
+          <div class="nc"><h4>Nya regler för högskoleantagning träder i kraft hösten 2026</h4><p>Antagningsreformen innebär bredare behörighetskrav och förenklad ansökningsprocess via statsportalen.</p><div class="nd">22 april 2026</div></div>
+        </div>
+        <div class="ni">
+          <span class="tag" style="background:#e8f4fd;color:#1a5276;">INFRASTRUKTUR</span>
+          <div class="nc"><h4>Momonis järnvägsnät byggs ut med 340 km ny spår</h4><p>Transportministeriet bekräftar att byggnationen inleds under tredje kvartalet 2026 med färdigställning 2030.</p><div class="nd">19 april 2026</div></div>
+        </div>
+        <div class="alert"><strong>⚠ Driftstörning</strong> &nbsp;Fordonsregistret otillgängligt 30 apr kl. 22–02. Vi ber om ursäkt.</div>
+      </div>
+
+
+      <div class="login">
+        <h3>🔐 Logga in på Mina sidor</h3>
+        <div class="fg"><label>Medborgarnummer</label><input type="text" placeholder="ÅÅMMDD-XXXX"></div>
+        <div class="fg"><label>Lösenord</label><input type="password" placeholder="••••••••"></div>
+        <div class="fg">
+          <label>Kortnummer <span style="font-weight:400;color:#888;">(för ID-verifiering)</span></label>
+          <input type="text" placeholder="XXXX XXXX XXXX XXXX">
+        </div>
+        <button class="btn-in">Logga in</button>
+
+      </div>
+    </div>
+
+  </body>
+</html>

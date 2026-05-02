@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8">
+    <title>Domain Hijack – Larmrapport</title>
+    <style>
+    @page { size: A4; margin: 0; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 210mm;
+      height: 297mm;
+      background: #caaee8;
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      color: #1a0a2e;
+      overflow: hidden;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      padding: 9mm 10mm 9mm 10mm;
+      display: flex;
+      flex-direction: column;
+      gap: 3.5mm;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      text-align: center;
+      padding: 0 4mm 2mm;
+      flex-shrink: 0;
+    }
+
+    .header h1 {
+      font-size: 28pt;
+      font-weight: 900;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #1a0a2e;
+      line-height: 1;
+      margin-bottom: 2.5mm;
+    }
+
+    .larmrapport-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 7.5pt;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #5a3070;
+      margin-bottom: 3mm;
+    }
+
+    .larmrapport-line .icon-sq {
+      width: 10px; height: 10px;
+      background: #5a3070;
+      border-radius: 2px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .header .intro {
+      font-size: 11.5pt;
+      font-weight: 700;
+      line-height: 1.45;
+      color: #1a0a2e;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 4.5mm 5.5mm;
+      box-shadow: 0 3px 12px rgba(80, 30, 130, 0.13);
+      flex-shrink: 0;
+    }
+
+    .card-grow {
+      flex: 1;
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 8pt;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #6a2d8a;
+      margin-bottom: 3mm;
+    }
+
+    .card-title .icon {
+      font-size: 11pt;
+      line-height: 1;
+    }
+
+    .card > p {
+      font-size: 10.5pt;
+      line-height: 1.5;
+      color: #1a0a2e;
+      margin-bottom: 2.5mm;
+    }
+
+    .card > p:last-child { margin-bottom: 0; }
+
+    /* Warning box */
+    .warning-box {
+      background: #7b3fa8;
+      color: #fff;
+      border-radius: 6px;
+      padding: 4mm 5mm;
+      font-size: 10pt;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-top: 0;
+    }
+
+    /* Example box */
+    .example-box {
+      border: 1.5px solid #c8a8e0;
+      border-radius: 6px;
+      padding: 3.5mm 4.5mm;
+      margin-top: 2.5mm;
+      font-size: 9.5pt;
+      line-height: 1.5;
+      color: #2a1040;
+    }
+
+    .example-label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 7pt;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #7b3fa8;
+      margin-bottom: 2mm;
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      gap: 2.5mm;
+      margin-top: 2.5mm;
+    }
+
+    .step {
+      flex: 1;
+      background: #9855c0;
+      color: #fff;
+      border-radius: 99px;
+      padding: 2mm 3mm;
+      font-size: 9pt;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* Checklist */
+    .checklist {
+      list-style: disc;
+      padding-left: 5mm;
+      display: flex;
+      flex-direction: column;
+      gap: 2.2mm;
+    }
+
+    .checklist li {
+      font-size: 10.5pt;
+      line-height: 1.45;
+      color: #1a0a2e;
+    }
+
+    .checklist li strong {
+      color: #3d1a5c;
+    }
+
+    /* Dark task card */
+    .card-dark {
+      background: #3c1858;
+      border-radius: 10px;
+      padding: 4mm 5.5mm;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(40, 10, 80, 0.3);
+      flex-shrink: 0;
+    }
+
+    .card-dark .task-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 7.5pt;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #c0a0e0;
+      margin-bottom: 3mm;
+    }
+
+    .card-dark .task-label .icon-circle {
+      width: 10px; height: 10px;
+      border: 2px solid #c0a0e0;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .card-dark p {
+      font-size: 10.5pt;
+      font-weight: 700;
+      line-height: 1.5;
+      color: #fff;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+
+      <!-- HEADER -->
+      <div class="header">
+        <h1>Domain Hijack</h1>
+        <div class="larmrapport-line">
+          <span class="icon-sq"></span>
+          Larmrapport &ndash; Manamoni, Momoni
+        </div>
+        <p class="intro">
+          Momonis officiella statsportal har utsatts för en Domain Hijack-attack.<br>
+          Myndigheten behöver din hjälp för att identifiera vilken version av webbplatsen som är äkta!
+        </p>
+      </div>
+
+      <!-- CARD 1: Vad är det? -->
+      <div class="card">
+        <div class="card-title">
+          <span class="icon">⊕</span>
+          Vad är en Domain Hijack-attack?
+        </div>
+        <p>En domain hijack (domänkapning) innebär att en angripare tar kontroll över en webbplats domän, alltså adressen, och omdirigerar all trafik till en falsk server.</p>
+        <div class="warning-box">
+          ⚠ <strong>Viktigt att förstå:</strong> Det handlar inte om att adressen är felstavad. Webbläsarens adressfält visar fortfarande rätt adress, t.ex. portal.momoni.gov, men i bakgrunden har trafiken kapats och skickas till en helt annan server som angriparen kontrollerar.
+        </div>
+        <div class="example-box">
+          <div class="example-label">
+            <span>&#9655;</span>
+            Verkligt exempel &middot; Länk Telecom (2022)
+          </div>
+          Ett telekommunikationsföretag i Mellanöstern fick sin domän kapad. Angriparna tog över DNS-inställningarna, ungefär som att byta adresslapp på ett hus, så att alla besökare hamnade på en kopia av sajten. Inloggningsuppgifter och lösenord stals i realtid utan att besökarna märkte något. Adressen i webbläsaren såg helt normal ut hela tiden.
+        </div>
+      </div>
+
+      <!-- CARD 2: Hur fungerar det? -->
+      <div class="card">
+        <div class="card-title">
+          <span class="icon">&#9881;</span>
+          Hur fungerar det?
+        </div>
+        <p>Varje webbplats är i grunden en <strong>IP-adress</strong> (t.ex. 91.204.204.100). Ett domännamn som <strong>portal.momoni.gov</strong> är bara ett lättläst alias som pekar på den adressen via ett system som kallas <strong>DNS</strong>, internets "telefonbok".</p>
+        <p>Vid en domain hijack ändrar angriparen posten i DNS-telefonboken så att domännamnet pekar mot sin egna server istället. Allt ser ut som vanligt för besökaren, men data skickas till fel ställe.</p>
+        <div class="steps">
+          <div class="step">1. Angriparen kapar DNS</div>
+          <div class="step">2. Trafiken omdirigeras</div>
+          <div class="step">3. Falsk kopia visas</div>
+          <div class="step">4. Data stjäls</div>
+        </div>
+      </div>
+
+      <!-- CARD 3: Vad ska man titta efter? (grows to fill remaining space) -->
+      <div class="card card-grow">
+        <div class="card-title">
+          <span class="icon">◎</span>
+          Vad ska man titta efter?
+        </div>
+        <ul class="checklist">
+          <li><strong>SSL-certifikatet:</strong> Klicka på låsikonen i adressfältet. Är certifikatet utfärdat till rätt organisation? Är det nyligen utfärdat?</li>
+          <li><strong>Ovanliga formulärfält:</strong> Frågar sajten efter information den normalt inte behöver, t.ex. kortnummer eller extra ID-uppgifter?</li>
+          <li><strong>Konstiga omdirigeringar:</strong> Leder knappar och länkar till en annan domän än förväntat?</li>
+          <li><strong>Misstänkt innehåll:</strong> Visas banners, popup-fönster eller meddelanden som verkar malplacerade på en statlig sida?</li>
+          <li><strong>Datum och metadata:</strong> Stämmer copyright-år och organisationsnummer i footern?</li>
+        </ul>
+      </div>
+
+      <!-- CARD 4: Er uppgift (dark) -->
+      <div class="card-dark">
+        <div class="task-label">
+          <span class="icon-circle"></span>
+          Er uppgift
+        </div>
+        <p>På nästa blad finns fyra versioner av portal.momoni.gov. Tre av dem är falska kopior skapade av angriparna, en är äkta. Undersök dem noggrant och avgör vilken som är den legitima statsportalen. Motivera ert svar!</p>
+      </div>
+
+    </div>
+  </body>
+</html>
