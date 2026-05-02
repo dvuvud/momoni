@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8">
+    <title>Phishing – Uppgift</title>
+    <style>
+    @page { size: A4; margin: 0; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 210mm;
+      height: 297mm;
+      background: #2a9a3a;
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      color: #071a0a;
+      overflow: hidden;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      padding: 7mm 9mm 7mm 9mm;
+      display: flex;
+      flex-direction: column;
+      gap: 2mm;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .header h1 {
+      font-size: 18pt;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #071a0a;
+      line-height: 1;
+      margin-bottom: 1.5mm;
+    }
+
+    .header-sub {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 7pt;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #0f3a18;
+      margin-bottom: 1.5mm;
+    }
+
+    .header-sub .icon-sq {
+      width: 8px; height: 8px;
+      background: #0f3a18;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .header .instruction {
+      font-size: 9.5pt;
+      font-weight: 700;
+      line-height: 1.35;
+      color: #071a0a;
+    }
+
+    /* ── LEGEND ── */
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 5mm;
+      flex-shrink: 0;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5mm;
+      font-size: 8pt;
+      font-weight: 700;
+      color: #071a0a;
+    }
+
+    .badge {
+      width: 6mm;
+      height: 6mm;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9pt;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .badge-ok  { background: #fff; color: #1a8a2a; border: 2px solid #1a8a2a; }
+    .badge-bad { background: #fff; color: #cc2222; border: 2px solid #cc2222; }
+
+    /* ── 2-COLUMN EMAIL GRID ── */
+    .email-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2mm;
+      flex: 1;
+    }
+
+    /* ── EMAIL ROW ── */
+    .email-row {
+      display: flex;
+      align-items: stretch;
+      gap: 2mm;
+    }
+
+    /* Email card */
+    .email-card {
+      flex: 1;
+      background: #fff;
+      border-radius: 7px;
+      box-shadow: 0 2px 8px rgba(10,60,20,0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .email-topbar {
+      background: #f0f4f1;
+      border-bottom: 1px solid #d4e4d8;
+      padding: 1.8mm 3mm;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3mm;
+    }
+
+    .email-from {
+      font-size: 7pt;
+      font-weight: 800;
+      color: #0f3a18;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .email-subject {
+      font-size: 8pt;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .email-body {
+      padding: 2mm 3mm;
+      font-size: 8pt;
+      line-height: 1.45;
+      color: #1a1a1a;
+      flex: 1;
+    }
+
+    .email-body p {
+      margin-bottom: 1mm;
+    }
+
+    .email-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .email-sig {
+      font-size: 7.5pt;
+      color: #444;
+      border-top: 1px solid #e8eee9;
+      margin-top: 1.5mm;
+      padding-top: 1.5mm;
+    }
+
+    .email-sig strong {
+      display: block;
+      color: #222;
+    }
+
+    /* ── VERDICT PANEL ── */
+    .verdict {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2mm;
+      flex-shrink: 0;
+      width: 11mm;
+    }
+
+    .verdict-ok {
+      width: 9mm;
+      height: 9mm;
+      border-radius: 50%;
+      border: 2px solid #1a8a2a;
+      color: #1a8a2a;
+      background: rgba(255,255,255,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11pt;
+      font-weight: 900;
+    }
+
+    .verdict-bad {
+      width: 9mm;
+      height: 9mm;
+      border-radius: 50%;
+      border: 2px solid #cc2222;
+      color: #cc2222;
+      background: rgba(255,255,255,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11pt;
+      font-weight: 900;
+    }
+
+    /* ── PHISHY HIGHLIGHT for suspicious links ── */
+    .sus-link {
+      display: inline-block;
+      background: #fff3cd;
+      border: 1px dashed #cc8800;
+      border-radius: 3px;
+      padding: 0 2px;
+      color: #1155cc;
+      text-decoration: underline;
+      font-size: 7.5pt;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+
+      <!-- HEADER -->
+      <div class="header">
+        <h1>Phishing – Uppgift</h1>
+        <div class="header-sub">
+          <span class="icon-sq"></span>
+          Enheten för Cybersäkerhet &ndash; Mejlanalys
+        </div>
+        <p class="instruction">
+          Nedan finns sex mejl som kommit in till myndigheten. Ringa in ✓ om du tror mejlet är äkta, eller ✗ om du tror det är phishing!
+        </p>
+      </div>
+
+      <!-- LEGEND -->
+      <div class="legend">
+        <div class="legend-item">
+          <div class="badge badge-ok">✓</div>
+          <span>Äkta mejl</span>
+        </div>
+        <div class="legend-item">
+          <div class="badge badge-bad">✗</div>
+          <span>Phishing</span>
+        </div>
+      </div>
+
+      <!-- 2-COLUMN GRID -->
+      <div class="email-grid">
+
+        <!-- EMAIL 1 -->
+        <div class="email-row">
+          <div class="email-card">
+            <div class="email-topbar">
+              <span class="email-from">Från: Miranda Myrsson</span>
+              <span class="email-subject">Inbjudan till möte nästa vecka</span>
+            </div>
+            <div class="email-body">
+              <p>Hej på er!</p>
+              <p>Här är en inbjudan till mötet nästa vecka. Vi kommer att träffas klockan 11:00 på våning tre i kontoret. Hoppas ni kan komma!</p>
+              <div class="email-sig">
+                <strong>Miranda Myrsson</strong>
+                Myndighetschef &bull; Telefon: 001-0299 0019
+              </div>
+            </div>
+          </div>
+          <div class="verdict">
+            <div class="verdict-ok">✓</div>
+            <div class="verdict-bad">✗</div>
+          </div>
+        </div>
+
+        <!-- EMAIL 2 -->
+        <div class="email-row">
+          <div class="email-card">
+            <div class="email-topbar">
+              <span class="email-from">Från: Vinnarsupport</span>
+              <span class="email-subject">Du vann !!</span>
+            </div>
+            <div class="email-body">
+              <p>Hej! Grattis!!! Du har blivit utvald att vinna en helt ny mobiltelefon 🎉 MEN du måste svara SNABBT!</p>
+              <p>Skicka ditt namn, adress och lösenord NU. Om du inte svarar inom 10 minuter går vinsten till någon annan!!!</p>
+              <p>Klicka här: <span class="sus-link">gratis-vinst-nu123.net</span></p>
+              <div class="email-sig"><strong>Hälsningar, Vinnarsupport</strong></div>
+            </div>
+          </div>
+          <div class="verdict">
+            <div class="verdict-ok">✓</div>
+            <div class="verdict-bad">✗</div>
+          </div>
+        </div>
+
+        <!-- EMAIL 3 -->
+        <div class="email-row">
+          <div class="email-card">
+            <div class="email-topbar">
+              <span class="email-from">Från: Medborgarservice</span>
+              <span class="email-subject">Bekräfta din identitet</span>
+            </div>
+            <div class="email-body">
+              <p>Hej! Detta är ett automatiskt meddelande från Medborgarservice.</p>
+              <p>Vi behöver uppdatera dina uppgifter. För att fortsätta använda våra tjänster behöver du bekräfta din identitet via länken nedan.</p>
+              <p>Bekräfta här: <span class="sus-link">medborgarservice-verifiering.com</span></p>
+              <div class="email-sig"><strong>Vänliga hälsningar, Medborgarservice</strong></div>
+            </div>
+          </div>
+          <div class="verdict">
+            <div class="verdict-ok">✓</div>
+            <div class="verdict-bad">✗</div>
+          </div>
+        </div>
+
+        <!-- EMAIL 4 -->
+        <div class="email-row">
+          <div class="email-card">
+            <div class="email-topbar">
+              <span class="email-from">Från: Elin Nord, Transportmyndigheten</span>
+              <span class="email-subject">Möte med Transportmyndigheten nästa vecka</span>
+            </div>
+            <div class="email-body">
+              <p>Hej! Här är en inbjudan till mötet med Transportmyndigheten nästa vecka. Vi träffas klockan 13:00 i konferensrum Eken på våning två.</p>
+              <p>Om du inte kan delta, meddela din handledare i god tid.</p>
+              <div class="email-sig">
+                <strong>Elin Nord</strong>
+                Samordnare, Transportmyndigheten
+              </div>
+            </div>
+          </div>
+          <div class="verdict">
+            <div class="verdict-ok">✓</div>
+            <div class="verdict-bad">✗</div>
+          </div>
+        </div>
+
+        <!-- EMAIL 5 -->
+        <div class="email-row">
+          <div class="email-card">
+            <div class="email-topbar">
+              <span class="email-from">Från: Chef Anders, Säkerhetsmyndigheten</span>
+              <span class="email-subject">VIKTIGT: Ditt konto är i fara!!!</span>
+            </div>
+            <div class="email-body">
+              <p>Hej! Vi har upptäckt att ditt konto är i fara!!! En stor säkerhetsrisk har hittats och du måste agera NU!</p>
+              <p>Skicka ditt användarnamn och lösenord direkt. Om du inte gör det inom 5 minuter stängs kontot av!!!</p>
+              <p>Klicka här: <span class="sus-link">sakerhet-akut123.net</span></p>
+              <div class="email-sig"><strong>Hälsningar, Chef Anders</strong></div>
+            </div>
+          </div>
+          <div class="verdict">
+            <div class="verdict-ok">✓</div>
+            <div class="verdict-bad">✗</div>
+          </div>
+        </div>
+
+        <!-- EMAIL 6 -->
+        <div class="email-row">
+          <div class="email-card">
+            <div class="email-topbar">
+              <span class="email-from">Från: Anna Svensson, Solgläntans skola</span>
+              <span class="email-subject">Brandövning på fredag</span>
+            </div>
+            <div class="email-body">
+              <p>Hej! På fredag kommer vi att ha en brandövning på skolan klockan 10:00.</p>
+              <p>Alla elever ska samlas vid huvudingången tillsammans med sina lärare. Om du har frågor, prata med din klasslärare.</p>
+              <div class="email-sig">
+                <strong>Anna Svensson</strong>
+                Rektor, Solgläntans skola &bull; Telefon: 012-345 67 89
+              </div>
+            </div>
+          </div>
+          <div class="verdict">
+            <div class="verdict-ok">✓</div>
+            <div class="verdict-bad">✗</div>
+          </div>
+        </div>
+
+        <!-- EMAIL 7 -->
+        <div class="email-row">
+          <div class="email-card">
+            <div class="email-topbar">
+              <span class="email-from">Från: IT-avdelningen</span>
+              <span class="email-subject">Planerat systemunderhåll på lördag 02:00–05:00</span>
+            </div>
+            <div class="email-body">
+              <p>Hej! Vi vill informera om att våra system kommer att vara otillgängliga under planerat underhåll på lördag mellan klockan 02:00 och 05:00.</p>
+              <p>Spara ditt arbete innan dess. Kontakta helpdesk vid frågor.</p>
+              <div class="email-sig">
+                <strong>IT-avdelningen</strong>
+                Helpdesk: it-support@myndigheten.se
+              </div>
+            </div>
+          </div>
+          <div class="verdict">
+            <div class="verdict-ok">✓</div>
+            <div class="verdict-bad">✗</div>
+          </div>
+        </div>
+
+        <!-- EMAIL 8 -->
+        <div class="email-row">
+          <div class="email-card">
+            <div class="email-topbar">
+              <span class="email-from">Från: Swedbank Kundtjänst</span>
+              <span class="email-subject">⚠ Ditt konto har spärrats – åtgärd krävs</span>
+            </div>
+            <div class="email-body">
+              <p>Hej! Vi har upptäckt misstänkt aktivitet på ditt bankkonto och har därför spärrat det som en säkerhetsåtgärd.</p>
+              <p>Fyll i dina kortuppgifter och BankID-kod på länken nedan för att låsa upp kontot omedelbart.</p>
+              <p>Lås upp här: <span class="sus-link">swedbank-sakerhet-verifiering.net</span></p>
+              <div class="email-sig"><strong>Swedbank Kundtjänst</strong></div>
+            </div>
+          </div>
+          <div class="verdict">
+            <div class="verdict-ok">✓</div>
+            <div class="verdict-bad">✗</div>
+          </div>
+        </div>
+
+        <!-- EMAIL 9 -->
+        <div class="email-row">
+          <div class="email-card">
+            <div class="email-topbar">
+              <span class="email-from">Från: PostNord</span>
+              <span class="email-subject">Ditt paket väntar – avgift krävs för leverans</span>
+            </div>
+            <div class="email-body">
+              <p>Hej! Ditt paket (ID: PN-48821903) kunde inte levereras. En liten tullavgift på 29 kr måste betalas inom 24 timmar annars returneras paketet.</p>
+              <p>Betala här: <span class="sus-link">postnord-leverans-avgift.com</span></p>
+              <div class="email-sig"><strong>PostNord Kundservice</strong></div>
+            </div>
+          </div>
+          <div class="verdict">
+            <div class="verdict-ok">✓</div>
+            <div class="verdict-bad">✗</div>
+          </div>
+        </div>
+
+        <!-- EMAIL 10 -->
+        <div class="email-row">
+          <div class="email-card">
+            <div class="email-topbar">
+              <span class="email-from">Från: HR-avdelningen</span>
+              <span class="email-subject">Påminnelse: Semesteransökan senast 15 maj</span>
+            </div>
+            <div class="email-body">
+              <p>Hej! Vi vill påminna om att semesteransökningar för sommaren ska vara inlämnade senast den 15 maj.</p>
+              <p>Logga in i personalsystemet som vanligt och fyll i dina önskade dagar. Hör av dig om du har frågor!</p>
+              <div class="email-sig">
+                <strong>HR-avdelningen</strong>
+                hr@myndigheten.se
+              </div>
+            </div>
+          </div>
+          <div class="verdict">
+            <div class="verdict-ok">✓</div>
+            <div class="verdict-bad">✗</div>
+          </div>
+        </div>
+
+      </div><!-- /email-grid -->
+
+    </div>
+  </body>
+</html>
