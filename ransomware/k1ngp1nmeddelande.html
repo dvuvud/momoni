@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8">
+    <title>Ransomware – Uppgift</title>
+    <style>
+    @page { size: A4; margin: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #00ff41;
+      --green-dim: #00b32c;
+      --green-dark: #003d0f;
+      --green-glow: rgba(0, 255, 65, 0.18);
+      --red: #ff3333;
+      --amber: #ffb300;
+      --bg: #050f06;
+      --bg2: #0a180b;
+      --border: #1a4a1e;
+    }
+
+    body {
+      width: 210mm;
+      height: 297mm;
+      background: var(--bg);
+      font-family: 'Courier New', Courier, monospace;
+      color: var(--green);
+      overflow: hidden;
+    }
+
+    /* Scanline overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,0.08) 3px,
+        rgba(0,0,0,0.08) 4px
+        );
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      padding: 8mm 10mm;
+      display: flex;
+      flex-direction: column;
+      gap: 4mm;
+    }
+
+    /* ── TERMINAL TOPBAR ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      border-radius: 5px 5px 0 0;
+      padding: 2mm 4mm;
+      flex-shrink: 0;
+    }
+
+    .topbar-dots span {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+    .dot-red   { background: #ff5f57; }
+    .dot-amber { background: #febc2e; }
+    .dot-green { background: #28c840; }
+
+    .topbar-title {
+      font-size: 7.5pt;
+      letter-spacing: 2px;
+      color: var(--green-dim);
+    }
+
+    .topbar-info {
+      font-size: 6.5pt;
+      color: #1a5a20;
+      letter-spacing: 1px;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 6.5pt;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #1a6a20;
+      margin-bottom: 1.5mm;
+    }
+
+    /* ── MESSAGE CARD ── */
+    .msg-card {
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      border-radius: 0 0 5px 5px;
+      padding: 4mm 5mm;
+      flex-shrink: 0;
+      border-top: none;
+    }
+
+    .msg-prompt {
+      font-size: 7pt;
+      color: var(--green-dim);
+      margin-bottom: 2mm;
+      letter-spacing: 1px;
+    }
+
+    .msg-prompt span { color: var(--red); }
+
+    .msg-text {
+      font-size: 9.5pt;
+      line-height: 1.6;
+      color: #c8f0cc;
+    }
+
+    .msg-sig {
+      margin-top: 3mm;
+      font-size: 9pt;
+      color: var(--green);
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .blink {
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ── INFO CARD ── */
+    .info-card {
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      border-radius: 5px;
+      padding: 4mm 5mm;
+      flex-shrink: 0;
+    }
+
+    .info-title {
+      font-size: 8pt;
+      font-weight: bold;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 2.5mm;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2mm;
+    }
+
+    .info-title::before { content: '> '; color: var(--green-dim); }
+
+    .info-text {
+      font-size: 9pt;
+      line-height: 1.55;
+      color: #b0d8b4;
+      margin-bottom: 3mm;
+    }
+
+    /* Alphabet shift table */
+    .cipher-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8pt;
+      margin: 2.5mm 0;
+    }
+
+    .cipher-table td {
+      text-align: center;
+      padding: 1.2mm 0;
+      width: 7.1mm;
+    }
+
+    .cipher-table tr:first-child td {
+      color: #6abf70;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cipher-table tr:last-child td {
+      color: var(--green);
+      font-weight: bold;
+    }
+
+    .table-label {
+      font-size: 6.5pt;
+      color: #1a6a20;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1mm;
+    }
+
+    /* Example box */
+    .example {
+      background: #071209;
+      border: 1px dashed #1a4a1e;
+      border-radius: 4px;
+      padding: 2.5mm 4mm;
+      margin-top: 2mm;
+      font-size: 8.5pt;
+      color: #80c884;
+    }
+
+    .example-label {
+      font-size: 6.5pt;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1.5mm;
+    }
+
+    .ex-row {
+      display: flex;
+      gap: 6mm;
+      align-items: center;
+    }
+
+    .ex-letters {
+      display: flex;
+      gap: 3mm;
+    }
+
+    .ex-letter {
+      text-align: center;
+    }
+
+    .ex-plain { color: #6abf70; font-size: 10pt; }
+    .ex-arrow { color: #1a6a20; font-size: 7pt; }
+    .ex-cipher { color: var(--green); font-size: 10pt; font-weight: bold; }
+
+    .ex-result {
+      font-size: 8pt;
+      color: #80c884;
+    }
+
+    /* ── CIPHER KEY CARD ── */
+    .key-card {
+      border: 1px solid var(--green-dim);
+      background: var(--bg2);
+      border-radius: 5px;
+      padding: 4mm 5mm;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px var(--green-glow);
+    }
+
+    .key-title {
+      font-size: 8pt;
+      font-weight: bold;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 2.5mm;
+    }
+
+    .key-title::before { content: '! '; }
+
+    .key-cipher {
+      font-size: 20pt;
+      font-weight: bold;
+      letter-spacing: 8px;
+      color: var(--green);
+      text-shadow: 0 0 10px var(--green-glow);
+      text-align: center;
+      padding: 3mm 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin: 2mm 0;
+    }
+
+    .key-hint {
+      font-size: 7.5pt;
+      color: var(--green-dim);
+      letter-spacing: 1px;
+      text-align: center;
+    }
+
+    /* ── ANSWER FIELD ── */
+    .answer-card {
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      border-radius: 5px;
+      padding: 3.5mm 5mm;
+      flex-shrink: 0;
+    }
+
+    .answer-title {
+      font-size: 7pt;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--green-dim);
+      margin-bottom: 2.5mm;
+    }
+
+    .answer-row {
+      display: flex;
+      align-items: center;
+      gap: 4mm;
+    }
+
+    .answer-prompt {
+      font-size: 10pt;
+      color: var(--green);
+      white-space: nowrap;
+    }
+
+    .answer-line {
+      flex: 1;
+      border-bottom: 1.5px solid var(--green-dim);
+      height: 6mm;
+    }
+
+    </style>
+  </head>
+  <body>
+    <div class="page">
+
+      <!-- TERMINAL BAR + MESSAGE -->
+      <div class="topbar">
+        <div class="topbar-dots">
+          <span class="dot-red"></span>
+          <span class="dot-amber"></span>
+          <span class="dot-green"></span>
+        </div>
+        <div class="topbar-title">INKOMMEN_TRANSMISSION.exe</div>
+        <div class="topbar-info">IP: █████████ &nbsp;|&nbsp; 05:13:47 UTC</div>
+      </div>
+
+      <div class="msg-card">
+        <div class="msg-prompt">root@k1ngp1n:~$ <span>decrypt --message incoming</span></div>
+        <div class="msg-text">
+          Jag är k1ngp1n. Jag lämnade gruppen för att de inte betalade min andel.<br>
+          Era filer är fortfarande krypterade och det är inte mitt problem längre.<br><br>
+          Men jag är inte som dem. Så jag ger er ett tips.<br><br>
+          Nyckeln till era filer finns här i detta meddelandet, krypterad med ett
+          Caesarchiffer, skift <strong style="color:var(--green)">+3</strong>.
+          Jag har inte tillgång till den avkrypterade versionen.
+          Ni måste lösa den själva.<br><br>
+          Lycka till.
+        </div>
+        <div class="msg-sig">// k1ngp1n <span class="blink">█</span></div>
+      </div>
+
+      <!-- CAESAR EXPLANATION -->
+      <div class="info-card">
+        <div class="info-title">Vad är ett Caesarchiffer?</div>
+        <div class="info-text">
+          I ett Caesarchiffer ersätts varje bokstav med en annan bokstav ett fast antal steg längre fram i alfabetet.
+          Med skift <strong style="color:var(--green)">+3</strong> blir A→D, B→E, C→F och så vidare.
+          För att <em>avkryptera</em> går man åt andra hållet, man drar av 3 från varje bokstav.
+        </div>
+
+        <div class="table-label">Alfabetet med skift +3 &nbsp;(avkryptera = gå baklänges)</div>
+        <table class="cipher-table">
+          <tr>
+            <td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td>
+            <td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td>
+          </tr>
+          <tr>
+            <td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td>
+            <td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td>
+          </tr>
+        </table>
+        <table class="cipher-table" style="margin-top:1mm">
+          <tr>
+            <td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td>
+            <td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td>
+          </tr>
+          <tr>
+            <td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td>
+            <td>X</td><td>Y</td><td>Z</td><td>A</td><td>B</td><td>C</td>
+          </tr>
+        </table>
+
+        <div class="example">
+          <div class="example-label">⚡ Exempel – avkryptera med −3</div>
+          <div class="ex-row">
+            <div class="ex-letters">
+              <div class="ex-letter"><div class="ex-plain">K</div><div class="ex-arrow">↓−3</div><div class="ex-cipher">H</div></div>
+              <div class="ex-letter"><div class="ex-plain">H</div><div class="ex-arrow">↓−3</div><div class="ex-cipher">E</div></div>
+              <div class="ex-letter"><div class="ex-plain">M</div><div class="ex-arrow">↓−3</div><div class="ex-cipher">J</div></div>
+            </div>
+            <div class="ex-result">&nbsp;→&nbsp; Krypterat <strong>"KHM"</strong> = Klartext <strong style="color:var(--green)">"HEJ"</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- THE ENCRYPTED KEY -->
+      <div class="key-card">
+        <div class="key-title">Krypterad nyckel – interceptad från k1ngp1ns server</div>
+        <div class="key-cipher">KDFNHUV</div>
+        <div class="key-hint">Avkryptera med skift −3 &nbsp;|&nbsp; Använd tabellen ovan</div>
+      </div>
+
+      <!-- ANSWER FIELD -->
+      <div class="answer-card">
+        <div class="answer-title">Skriv den avkrypterade nyckeln här</div>
+        <div class="answer-row">
+          <div class="answer-prompt">NYCKEL:&nbsp;</div>
+          <div class="answer-line"></div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
