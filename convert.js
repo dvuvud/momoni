@@ -24,8 +24,7 @@ async function convertLocalHtmlToPdf() {
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    const htmlContent = fs.readFileSync(htmlPath, 'utf8');
-    await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
+    await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle0' });
     await page.pdf({
         path: outputFile,
         format: 'A4',
